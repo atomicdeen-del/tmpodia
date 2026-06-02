@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Truthpedia FAQ - Knowledge Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --gold: #FFBA00;
+  --gold-bright: #ffd04d;
+  --gold-pale: #fff5cc;
+  --gold-dim: rgba(255,186,0,0.10);
+  --gold-glow: rgba(255,186,0,0.25);
+  --amber: #ff9500;
+  --bg: #0a0a0a;
+  --text: #e8e4d8;
+  --text-muted: #a0a0a0;
+  --border: rgba(255,186,0,0.15);
+  --border-bright: rgba(255,186,0,0.35);
+  --font-display: 'Bebas Neue', 'Cinzel', serif;
+  --font-body: 'Rajdhani', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+  --ease-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════ OVERLAYS ═══════════════════════ */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+  opacity: 0.5;
+  animation: scanline-shift 8s linear infinite;
+}
+
+@keyframes scanline-shift {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(10px); }
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.85) 100%);
+}
+
+/* ═════════════ NAVBAR ═════════════ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(0,0,0,0.94);
+  backdrop-filter: blur(24px) saturate(1.5);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 0 rgba(255,186,0,0.05), 0 4px 40px rgba(0,0,0,0.8);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  height: 72px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-logo:hover {
+  color: var(--gold-bright);
+  text-shadow: 0 0 20px var(--gold-glow);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-links a:hover {
+  color: var(--gold);
+}
+
+/* ═══════════════════════ HERO SECTION ═══════════════════════ */
+.faq-hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #000 0%, #080704 50%, #000 100%);
+}
+
+.faq-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 140% 100% at 50% -20%, rgba(255,186,0,0.09) 0%, transparent 50%), radial-gradient(ellipse 100% 100% at 15% 0%, rgba(255,186,0,0.04) 0%, transparent 60%);
+  z-index: 0;
+}
+
+.faq-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,.18) 60%, rgba(0,0,0,.8) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.faq-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+  padding: 2rem;
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.faq-hero-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--gold);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.3s ease forwards;
+}
+
+.faq-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 10vw, 6rem);
+  line-height: 1.1;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 60px rgba(255,186,0,0.3);
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s ease forwards;
+}
+
+.faq-hero-subtitle {
+  font-size: 1.2rem;
+  color: rgba(232,228,216,0.7);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.8;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.9s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ═══════════════════════ MAIN CONTENT ═══════════════════════ */
+.faq-container {
+  max-width: 1000px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+}
+
+.faq-section {
+  margin-bottom: 5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.faq-section:nth-child(1) { animation-delay: 0.3s; }
+.faq-section:nth-child(2) { animation-delay: 0.5s; }
+.faq-section:nth-child(3) { animation-delay: 0.7s; }
+.faq-section:nth-child(4) { animation-delay: 0.9s; }
+.faq-section:nth-child(5) { animation-delay: 1.1s; }
+.faq-section:nth-child(6) { animation-delay: 1.3s; }
+
+.faq-section-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 2.5rem;
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.faq-section-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.faq-section-icon {
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: var(--gold);
+  background: rgba(255,186,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.faq-section:hover .faq-section-icon {
+  background: rgba(255,186,0,0.15);
+  box-shadow: 0 0 20px rgba(255,186,0,0.3);
+  transform: scale(1.1);
+}
+
+.faq-section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  text-shadow: 0 0 30px rgba(255,186,0,0.2);
+}
+
+.faq-items {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.faq-item {
+  padding: 2rem;
+  background: rgba(255,186,0,0.03);
+  border-left: 3px solid var(--gold);
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.faq-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,186,0,0.1) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.faq-item:hover {
+  background: rgba(255,186,0,0.08);
+  border-left-color: var(--gold-bright);
+  box-shadow: 0 0 30px rgba(255,186,0,0.2), inset 0 0 20px rgba(255,186,0,0.05);
+  transform: translateX(10px);
+}
+
+.faq-item:hover::before {
+  opacity: 1;
+}
+
+.faq-question {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.faq-question::before {
+  content: 'Q:';
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.faq-answer {
+  font-size: 1rem;
+  color: rgba(232,228,216,0.7);
+  line-height: 1.9;
+  position: relative;
+  z-index: 1;
+}
+
+.faq-answer strong {
+  color: var(--gold-bright);
+  font-weight: 600;
+}
+
+.faq-answer ul,
+.faq-answer ol {
+  margin-left: 2rem;
+  margin-top: 1rem;
+}
+
+.faq-answer li {
+  margin-bottom: 0.8rem;
+  color: rgba(232,228,216,0.6);
+}
+
+.faq-answer li strong {
+  color: var(--text);
+}
+
+/* ═══════════════════════ SPECIAL SECTIONS ═══════════════════════ */
+.donation-highlight {
+  background: linear-gradient(135deg, rgba(255,186,0,0.12) 0%, rgba(255,186,0,0.05) 100%);
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  padding: 2.5rem;
+  margin: 3rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.donation-highlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255,186,0,0.1) 50%, transparent 70%);
+  animation: shine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.donation-highlight-content {
+  position: relative;
+  z-index: 1;
+}
+
+.donation-highlight-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.08em;
+}
+
+.donation-highlight-text {
+  font-size: 1.1rem;
+  color: rgba(232,228,216,0.8);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.donation-methods {
+  background: rgba(0,0,0,0.4);
+  padding: 2rem;
+  border-left: 3px solid var(--gold);
+  margin: 2rem 0;
+}
+
+.donation-methods-title {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px rgba(255,186,0,0.3);
+}
+
+.donation-methods ul {
+  list-style: none;
+}
+
+.donation-methods li {
+  color: rgba(232,228,216,0.7);
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.donation-methods li::before {
+  content: '◆';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  opacity: 0.6;
+}
+
+.warning-box {
+  background: rgba(255,140,0,0.08);
+  border: 2px solid rgba(255,140,0,0.4);
+  padding: 2rem;
+  margin: 2rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.warning-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--amber), transparent);
+}
+
+.warning-title {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--amber);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.warning-title::before {
+  content: '⚠';
+  font-size: 1.2rem;
+}
+
+.warning-text {
+  color: rgba(232,228,216,0.7);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+/* ═══════════════════════ CTA SECTION ═══════════════════════ */
+.faq-cta {
+  position: relative;
+  margin-top: 6rem;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, rgba(255,186,0,0.1) 0%, rgba(255,186,0,0.05) 100%);
+  border: 2px solid var(--gold);
+  text-align: center;
+  overflow: hidden;
+}
+
+.faq-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255,186,0,0.08), transparent 70%);
+  animation: pulse-bg 4s ease-in-out infinite;
+}
+
+@keyframes pulse-bg {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.faq-cta-content {
+  position: relative;
+  z-index: 1;
+}
+
+.faq-cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 40px rgba(255,186,0,0.4);
+}
+
+.faq-cta-text {
+  font-size: 1.1rem;
+  color: rgba(232,228,216,0.7);
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.8;
+}
+
+.faq-cta-buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 16px 40px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: #000;
+  border: 2px solid var(--gold);
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--gold);
+  box-shadow: 0 0 30px rgba(255,186,0,0.4);
+  transform: translateY(-3px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--gold);
+  border: 2px solid var(--gold);
+}
+
+.btn-secondary:hover {
+  background: rgba(255,186,0,0.1);
+  box-shadow: 0 0 30px rgba(255,186,0,0.3);
+  transform: translateY(-3px);
+}
+
+/* ═══════════════════════ FOOTER ═══════════════════════ */
+.footer {
+  position: relative;
+  margin-top: 6rem;
+  padding: 4rem 2rem;
+  background: #000;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.footer-text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.footer-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  margin: 1.5rem auto;
+  box-shadow: 0 0 10px rgba(255,186,0,0.4);
+}
+
+/* ═══════════════════════ RESPONSIVE ═══════════════════════ */
+@media (max-width: 768px) {
+  .nav-container {
+    padding: 0 1.5rem;
+  }
+
+  .nav-logo {
+    font-size: 1.2rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+  }
+
+  .nav-links a {
+    font-size: 0.65rem;
+  }
+
+  .faq-hero {
+    min-height: 50vh;
+    padding-top: 80px;
+  }
+
+  .faq-hero-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  .faq-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .faq-item:hover {
+    transform: translateX(5px);
+  }
+
+  .faq-cta-buttons {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .donation-methods {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-logo {
+    font-size: 1rem;
+  }
+
+  .faq-hero-title {
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
+  }
+
+  .faq-container {
+    padding: 0 1rem;
+  }
+
+  .faq-item {
+    padding: 1.5rem;
+  }
+
+  .faq-question {
+    font-size: 1.1rem;
+  }
+
+  .faq-answer {
+    font-size: 0.95rem;
+  }
+
+  .donation-highlight {
+    padding: 1.5rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Background Overlays -->
+<div class="scanlines"></div>
+<div class="vignette"></div>
+
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">TRUTHPEDIA</a>
+    <div class="nav-links">
+      <a href="index.html">HOME</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">CONTACT</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="faq-hero">
+  <div class="faq-hero-content">
+    <div class="faq-hero-label">KNOWLEDGE HUB</div>
+    <h1 class="faq-hero-title">Frequently Asked Questions</h1>
+    <p class="faq-hero-subtitle">Everything you need to know about Truthpedia, how it works, and how you can be part of the truth revolution.</p>
+  </div>
+</section>
+
+<!-- Main Content -->
+<div class="faq-container">
+
+  <!-- Section 1: About Truthpedia -->
+  <section class="faq-section">
+    <div class="faq-section-header">
+      <div class="faq-section-icon">🎯</div>
+      <h2 class="faq-section-title">About Truthpedia</h2>
+    </div>
+
+    <div class="faq-items">
+      <div class="faq-item">
+        <div class="faq-question">What is Truthpedia?</div>
+        <div class="faq-answer">
+          Truthpedia is a decentralized, fully anonymous platform where truth has no barriers. Expose corruption. Report injustice. Reveal wrongdoing safely, without compromise, and without a trace. Our team, independent journalists, and the general public work together to uncover what the powerful want hidden.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Who runs Truthpedia?</div>
+        <div class="faq-answer">
+          Truthpedia is founded and led by a young visionary committed to truth and transparency. The core team and contributors operate anonymously to maintain security and independence.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Is Truthpedia affiliated with any government, corporation, or political group?</div>
+        <div class="faq-answer">
+          No. Truthpedia is completely independent. We have no ties to governments, corporations, political parties, or intelligence agencies.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">How is Truthpedia different from WikiLeaks or other leak platforms?</div>
+        <div class="faq-answer">
+          Let's be clear, Truthpedia is not a leak platform. Where raw files are dumped and people are left to sift through thousands of documents, we do the hard work for you. Our team, independent journalists, and contributors investigate, verify, and distill the truth into concise, compelling stories, delivered in video format or as sharp, digestible reads. <strong>No jargon. No overwhelm. Just the truth, presented clearly.</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Legal & Privacy -->
+  <section class="faq-section">
+    <div class="faq-section-header">
+      <div class="faq-section-icon">🔒</div>
+      <h2 class="faq-section-title">Legal & Privacy</h2>
+    </div>
+
+    <div class="faq-items">
+      <div class="faq-item">
+        <div class="faq-question">Is Truthpedia Legal?</div>
+        <div class="faq-answer">
+          Operating and using Truthpedia is legal in most jurisdictions. The risk is ours, not yours. Our architecture is built so that users are never exposed. You receive the truth safely, anonymously, and without consequence. There are <strong>no accounts, no logs, and no traces</strong>—nothing that could ever connect you to what you read or share. Whatever legal, political, or institutional pressure may come, it lands on us, not on you.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">How Anonymous Is Truthpedia?</div>
+        <div class="faq-answer">
+          <strong>Completely.</strong> No one who uses this platform is ever exposed. No accounts. No emails. No IP logging. No metadata. No fingerprints, digital or otherwise. Whether you are a whistleblower risking exposing injustice, a journalist protecting a source, or simply a person seeking the truth, your identity is untouchable here.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Submissions & Publishing -->
+  <section class="faq-section">
+    <div class="faq-section-header">
+      <div class="faq-section-icon">📨</div>
+      <h2 class="faq-section-title">Submissions & Publishing</h2>
+    </div>
+
+    <div class="faq-items">
+      <div class="faq-item">
+        <div class="faq-question">How do I submit a story or tip to Truthpedia?</div>
+        <div class="faq-answer">
+          Simple. If you have information, evidence, or a story that exposes corruption, injustice, or wrongdoing, we want to hear it. Hit the <strong>"Contact Us"</strong> button in the menu, tell us what you know, and share whatever proof or documentation you have behind it. Our team will review it, verify it, and if credible, transform it into a concise, compelling story delivered to the world.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">What counts as a story worth submitting?</div>
+        <div class="faq-answer">
+          If it's true, provable, and the public deserves to know.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Do I need to reveal who I am?</div>
+        <div class="faq-answer">
+          Never. We ask only for the truth and the evidence behind it, nothing that could ever identify you.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">What kind of proof do I need?</div>
+        <div class="faq-answer">
+          Documents, recordings, screenshots, videos, testimonies—anything that substantiates your claim. <strong>The stronger the evidence, the faster we can act.</strong> You have the truth. We have the platform. And we'll expose it together.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Will my submission be published automatically?</div>
+        <div class="faq-answer">
+          No. All submissions are reviewed by our team for authenticity, significance, and safety before any public release.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Can I stay in contact after submitting?</div>
+        <div class="faq-answer">
+          Absolutely, and entirely on your terms. You can reach us anytime via our Gmail, our privacy-focused email addresses, or on Telegram. You're also welcome to provide your own secure communication method—a temporary encrypted email, a private key, or whatever you're most comfortable with. <strong>We will never ask for, store, or retain any personal information, ever.</strong>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">How do you verify submissions?</div>
+        <div class="faq-answer">
+          Our team of experienced journalists and researchers carefully examines documents, cross-references claims, and assesses credibility before publishing.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Who decides what gets published?</div>
+        <div class="faq-answer">
+          The founder and an independent editorial team operating anonymously, guided by journalistic standards and our mission.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Will you publish everything you receive?</div>
+        <div class="faq-answer">
+          No. We publish only credible, significant information that serves the public interest.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Support & Donations -->
+  <section class="faq-section">
+    <div class="faq-section-header">
+      <div class="faq-section-icon">💰</div>
+      <h2 class="faq-section-title">Support & Donations</h2>
+    </div>
+
+    <div class="faq-items">
+      <div class="donation-highlight">
+        <div class="donation-highlight-content">
+          <div class="donation-highlight-title">Support the Truth Revolution</div>
+          <div class="donation-highlight-text">
+            You can donate in whatever way works best for you. Choose the method that aligns with your comfort level and anonymity needs.
+          </div>
+
+          <div class="donation-methods">
+            <div class="donation-methods-title">Donation Methods Available</div>
+            <ul>
+              <li><strong>Fiat:</strong> Card, Apple Pay, Google Pay</li>
+              <li><strong>Cryptocurrencies:</strong> A wide variety of cryptocurrencies and privacy coins</li>
+              <li><strong>Other Methods:</strong> If you want to donate a different way, reach out and we'll make it work</li>
+            </ul>
+          </div>
+          <div style="font-style: italic; color: rgba(232,228,216,0.8); margin-top: 1.5rem; font-size: 1rem;">
+            Invest in truth. Invest in Truthpedia.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Is my donation anonymous?</div>
+        <div class="faq-answer">
+          Honestly, it depends on how you choose to donate, and that's exactly why we give you options. Anonymity is not always in our hands. Some cryptocurrencies like Bitcoin and Ethereum operate on public blockchains, meaning donations can potentially be traced back to a wallet. Similarly, certain fiat payment methods carry their own paper trails.
+          <div style="margin-top: 1.5rem;">
+            <strong>That's why we offer more than just the standard options:</strong>
+          </div>
+          <ul style="margin-top: 1rem;">
+            <li><strong>Monero and other privacy coins</strong> are our strongest recommendation for complete, untraceable anonymity.</li>
+            <li><strong>Other anonymous methods:</strong> If none of the listed options feel private enough, reach out and we'll find a way to make it work on your terms.</li>
+          </ul>
+          <div style="margin-top: 1.5rem; color: rgba(232,228,216,0.8);">
+            We give you the widest possible range of choices.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Can I get a tax receipt?</div>
+        <div class="faq-answer">
+          No, and intentionally so. Truthpedia is not a registered company, and it never will be. Registration means accountability to governments, institutions, and systems that are often the very ones we expose. <strong>All support is treated as a direct investment in the mission. We exist outside the system. That's the point.</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: For Journalists & Partners -->
+  <section class="faq-section">
+    <div class="faq-section-header">
+      <div class="faq-section-icon">📰</div>
+      <h2 class="faq-section-title">For Journalists & Partners</h2>
+    </div>
+
+    <div class="faq-items">
+      <div class="faq-item">
+        <div class="faq-question">Can media outlets partner with Truthpedia?</div>
+        <div class="faq-answer">
+          Yes. We collaborate with independent journalists and trusted outlets to verify and amplify major stories.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">How do journalists access leaked materials?</div>
+        <div class="faq-answer">
+          Verified journalists can contact us through our secure channels for access to significant submissions.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Do you protect journalists who work with you?</div>
+        <div class="faq-answer">
+          <strong>Absolutely.</strong> All collaborators can remain anonymous. We never reveal sources or partners.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: Safety & Resilience -->
+  <section class="faq-section">
+    <div class="faq-section-header">
+      <div class="faq-section-icon">🛡️</div>
+      <h2 class="faq-section-title">Risks & Safety</h2>
+    </div>
+
+    <div class="faq-items">
+      <div class="faq-item">
+        <div class="faq-question">What precautions should I take before submitting?</div>
+        <div class="faq-answer">
+          None. You don't submit anything directly to the platform. You simply reach out to us via Gmail, our privacy-focused email addresses, or Telegram, and tell us what you have. <strong>We take it from there.</strong> We are the ones who handle, verify, and publish.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Can Truthpedia Be Shut Down?</div>
+        <div class="faq-answer">
+          <strong>No. And here's why:</strong>
+          <ul style="margin-top: 1rem;">
+            <li><strong>Fully decentralized:</strong> There is no central server to seize, no single point to target.</li>
+            <li><strong>No registered entity:</strong> We have no legal address, no company, no jurisdiction that owns us.</li>
+            <li><strong>No data to confiscate:</strong> We store nothing, so there is nothing to hand over.</li>
+            <li><strong>No identities to expose:</strong> Neither ours nor yours.</li>
+            <li><strong>No single team:</strong> Our network of contributors spans the globe and cannot be dismantled in one move.</li>
+          </ul>
+          <div style="margin-top: 1.5rem; font-style: italic; color: rgba(232,228,216,0.8);">
+            Built to survive pressure. No court order, government, or institution can shut down what they cannot find.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- CTA Section -->
+<section class="faq-cta">
+  <div class="faq-cta-content">
+    <h2 class="faq-cta-title">Have More Questions?</h2>
+    <p class="faq-cta-text">
+      We're here to help. Reach out to us through any of our secure channels and we'll get back to you with the answers you need.
+    </p>
+    <div class="faq-cta-buttons">
+      <button class="btn btn-primary">CONTACT US</button>
+      <a href="index.html" class="btn btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center;">BACK TO HOME</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <p class="footer-text">TRUTHPEDIA © 2025 | UNFILTERED TRUTH</p>
+  <div class="footer-divider"></div>
+  <p class="footer-text">Empowering minds through authentic information</p>
+</footer>
+
+<script>
+// Smooth animations on load
+document.addEventListener('DOMContentLoaded', function() {
+  const items = document.querySelectorAll('.faq-item');
+  items.forEach((item, index) => {
+    item.style.animation = `fadeUp 0.6s ease forwards`;
+    item.style.animationDelay = `${0.1 * index}s`;
+  });
+});
+
+// Interactive FAQ items
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.addEventListener('click', function() {
+    this.style.transform = 'scale(1.02)';
+    setTimeout(() => {
+      this.style.transform = '';
+    }, 200);
+  });
+});
+
+// Contact button functionality
+document.querySelector('.btn-primary').addEventListener('click', function() {
+  // This would link to a contact form
+  window.location.href = '#contact';
+});
+</script>
+
+</body>
+</html>
